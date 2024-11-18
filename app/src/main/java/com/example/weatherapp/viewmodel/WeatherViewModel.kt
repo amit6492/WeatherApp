@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.buisness.data.WeatherDataResponse
+import com.example.weatherapp.buisness.data.weatherentity.WeatherEntity
 import com.example.weatherapp.buisness.repository.WeatherDataRepository
 import com.example.weatherapp.uistates.UiStates
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,8 @@ class WeatherViewModel @Inject constructor(
     private val weatherDataRepository: WeatherDataRepository
 ): ViewModel() {
 
-    private val _weatherData = MutableStateFlow<WeatherDataResponse?>(null)
-    val weatherData: StateFlow<WeatherDataResponse?> = _weatherData
+    private val _weatherData = MutableStateFlow<WeatherEntity?>(null)
+    val weatherData: StateFlow<WeatherEntity?> = _weatherData
 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage

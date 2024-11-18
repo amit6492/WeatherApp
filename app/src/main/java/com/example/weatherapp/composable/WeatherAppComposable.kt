@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.weatherapp.buisness.data.WeatherDataResponse
+import com.example.weatherapp.buisness.data.weatherentity.WeatherEntity
 import com.example.weatherapp.uistates.UiStates
 import com.example.weatherapp.viewmodel.WeatherViewModel
 
@@ -115,7 +116,7 @@ fun WeatherAppComposable(viewModel: WeatherViewModel) {
 }
 
 @Composable
-fun WeatherContent(weatherData: WeatherDataResponse) {
+fun WeatherContent(weatherData: WeatherEntity) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -124,23 +125,15 @@ fun WeatherContent(weatherData: WeatherDataResponse) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Weather Icon
-        weatherData.weather?.first()?.icon?.let { WeatherIcon(icon = it) }
+        WeatherIcon(icon = weatherData.logo) }
 
         // City Name
         Text(
-            text = weatherData.name,
+            text = weatherData.cityName,
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
 
-        // Weather Description
-        weatherData.weather?.first()?.description?.capitalize()?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.bodyMedium,
-                fontStyle = FontStyle.Italic
-            )
-        }
 
         // Temperature Details
         Spacer(modifier = Modifier.height(8.dp))
@@ -149,11 +142,11 @@ fun WeatherContent(weatherData: WeatherDataResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Temp: ${weatherData.main.temp}°C",
+                text = "Temp: ${weatherData.temp}°C",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Feels Like: ${weatherData.main.feelsLike}°C",
+                text = "Feels Like: ${weatherData.feelsLike}°C",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -164,11 +157,11 @@ fun WeatherContent(weatherData: WeatherDataResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Min: ${weatherData.main.tempMin}°C",
+                text = "Min: ${weatherData.tempMin}°C",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Max: ${weatherData.main.tempMax}°C",
+                text = "Max: ${weatherData.tempMax}°C",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -180,20 +173,19 @@ fun WeatherContent(weatherData: WeatherDataResponse) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = "Humidity: ${weatherData.main.humidity}%",
+                text = "Humidity: ${weatherData.humidity}%",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Pressure: ${weatherData.main.pressure} hPa",
+                text = "Clouds: ${weatherData.clouds} hPa",
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Wind Speed: ${weatherData.wind.speed} m/s",
+                text = "Wind Speed: ${weatherData.windSpeed} m/s",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
     }
-}
 
 @Composable
 fun WeatherIcon(icon: String) {
